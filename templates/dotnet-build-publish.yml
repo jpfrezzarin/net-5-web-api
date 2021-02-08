@@ -4,12 +4,12 @@ parameters:
 
 jobs:
 - job:
-  displayName: .net - build & publish - ${{ parameters.environment }}.
+  displayName: dotnet - build & publish - ${{ parameters.environment }}
   steps:
   - task: UseDotNet@2
     displayName: use dotnet ${{ parameters.dotnetVersion }}
     inputs:
-      version: '{{ parameters.dotnetVersion }}'
+      version: '${{ parameters.dotnetVersion }}'
 
   - task: DotNetCoreCLI@2
     displayName: dotnet restore
