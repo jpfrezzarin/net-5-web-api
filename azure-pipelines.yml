@@ -18,23 +18,30 @@ pool:
   vmImage: 'ubuntu-18.04'
 
 stages:
-  - stage: build
-    displayName: build
+  - stage: build_publish
+    displayName: build and publish
     jobs:
-      - template: dotnet-core/dotnet-core-build-publish-with-sonar.yml@templates
-        parameters:
-          environment: 'dev'
-          dotnetVersion: '5.0.x'
-          sonarEndpoint: 'jpfrezzarin-sonarcloud'
-          sonarOrganization: 'jpfrezzarin'
-          sonarProjectKey: 'jpfrezzarin.net-5-web-api'
-          sonarProjectName: 'net-5-web-api'
-          buildConfiguration: 'Debug'
-          artifactName: 'app.dev'
+      - job: build_dev
+        displayName: build and publish - dev
+        steps:
+        - template: dotnet-core/dotnet-core-build-publish-with-sonar.yml@templates
+          parameters:
+            environment: 'dev'
+            dotnetVersion: '5.0.x'
+            sonarEndpoint: 'jpfrezzarin-sonarcloud'
+            sonarOrganization: 'jpfrezzarin'
+            sonarProjectKey: 'jpfrezzarin.net-5-web-api'
+            sonarProjectName: 'net-5-web-api'
+            buildConfiguration: 'Debug'
+            artifactName: 'app.dev'
 
-      - template: dotnet-core/dotnet-core-build-publish.yml@templates
-        parameters:
-          environment: 'prd'
-          dotnetVersion: '5.0.x'
-          buildConfiguration: 'Release'
-          artifactName: 'app.prd'
+      - job: build_prd
+        displayName: build and publish - prd
+        dependsOn: build_dev
+        steps:
+        - template: dotnet-core/dotnet-core-build-publish.yml@templates
+          parameters:
+            environment: 'prd'
+            dotnetVersion: '5.0.x'
+            buildConfiguration: 'Release'
+            artifactName: 'app.prd'
