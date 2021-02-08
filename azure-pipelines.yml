@@ -27,13 +27,12 @@ stages:
         - template: dotnet-core/dotnet-core-build-publish-with-sonar.yml@templates
           parameters:
             environment: 'dev'
-            dotnetVersion: '5.0.x'
+            buildConfiguration: 'Debug'
+            artifactName: 'app.dev'
             sonarEndpoint: 'jpfrezzarin-sonarcloud'
             sonarOrganization: 'jpfrezzarin'
             sonarProjectKey: 'jpfrezzarin.net-5-web-api'
             sonarProjectName: 'net-5-web-api'
-            buildConfiguration: 'Debug'
-            artifactName: 'app.dev'
 
       - job: build_prd
         displayName: build and publish - prd
@@ -42,6 +41,5 @@ stages:
         - template: dotnet-core/dotnet-core-build-publish.yml@templates
           parameters:
             environment: 'prd'
-            dotnetVersion: '5.0.x'
             buildConfiguration: 'Release'
             artifactName: 'app.prd'
