@@ -25,3 +25,12 @@ stages:
         parameters:
           environment: 'dev'
           dotnetVersion: '5.0.x'
+          buildConfiguration: 'Debug'
+          artifactName: 'app.dev'
+
+      - template: dotnet-core/dotnet-core-build-publish.yml@templates
+        parameters:
+          environment: 'prd'
+          dotnetVersion: '5.0.x'
+          buildConfiguration: 'Release'
+          artifactName: 'app.prd'
