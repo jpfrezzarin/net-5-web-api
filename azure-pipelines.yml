@@ -21,7 +21,7 @@ stages:
   - stage: build
     displayName: build
     jobs:
-      - template: dotnet-core/dotnet-core-build-publish-with-sonar@templates
+      - template: dotnet-core/dotnet-core-build-publish-with-sonar.yml@templates
         parameters:
           environment: 'dev'
           dotnetVersion: '5.0.x'
