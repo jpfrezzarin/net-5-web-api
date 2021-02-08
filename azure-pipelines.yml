@@ -4,6 +4,13 @@
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
 
+resources:
+  repositories:
+  - repository: templates
+    type: github
+    endpoint: jpfrezzarin
+    name: jpfrezzarin/azure-pipeline-templates
+
 trigger:
 - main
 
@@ -12,9 +19,9 @@ pool:
 
 stages:
   - stage: build
-    displayName: Build stage
+    displayName: build
     jobs:
-      - template: templates/dotnet-build-publish.yml
+      - template: dotnet-core/dotnet-core-build-publish.yml@templates
         parameters:
           environment: 'dev'
           dotnetVersion: '5.0.x'
